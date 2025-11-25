@@ -10,5 +10,15 @@ public class RentalSystemController {
 	public String toHome() {
 		return "index";
 	}
+	
+	@GetMapping(value = "/detail")
+	public String toDetail() {
+		return "detail";
+	}
+	
+	@GetMapping(value = "/login")
+	public String toLogin() {
+		return "login";
+	}
 
 }

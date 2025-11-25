@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-bs-theme="auto">
   <head>
 <!--	  <script src="../assets/js/color-modes.js"></script>-->
 
@@ -95,7 +95,7 @@
   <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
-        <img src="assets/dist/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
+        <img src="/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
         <strong>Online Rental System</strong>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +114,7 @@
         <p class="lead text-body-secondary">page 1</p>
         <p>
           <a href="#" class="btn btn-primary my-2">マイページ</a>
-          <a href="#" class="btn btn-primary my-2">ログイン</a>
+          <a th:href="@{/login}" class="btn btn-primary my-2">ログイン</a>
           <a href="#" class="btn btn-primary my-2">新規登録</a>
         </p>
       </div>
@@ -133,7 +133,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -147,7 +147,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -161,7 +161,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -175,7 +175,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -231,7 +231,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
@@ -245,7 +245,7 @@
               <div class="d-flex align-items-center justify-content-center">
                 <div class="btn-group d-flex align-items-center">
                   <button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button>
-                  <a href="detail.html"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
+                  <a th:href="@{/detail}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
             </div>
