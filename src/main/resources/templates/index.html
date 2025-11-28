@@ -114,8 +114,9 @@
         <p class="lead text-body-secondary">page 1</p>
         <p>
           <a href="#" class="btn btn-primary my-2">マイページ</a>
+          <!--↑を<a th:href="@{/mypage}"←へ変更予定-->
           <a th:href="@{/login}" class="btn btn-primary my-2">ログイン</a>
-          <a href="#" class="btn btn-primary my-2">新規登録</a>
+          <a th:href="@{/register}" class="btn btn-primary my-2">新規登録</a>
         </p>
       </div>
     </div>
