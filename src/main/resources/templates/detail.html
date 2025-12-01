@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html xmlns:th="http://www.thymeleaf.org" lang="ja" data-bs-theme="auto">
 <!--  <head><script src="../assets/js/color-modes.js"></script>-->
 
     <meta charset="utf-8">
@@ -102,11 +102,11 @@
 </header>
 <main class="container">
   
-  <div class="bg-body-tertiary p-5 rounded mt-3">
-    <h1>NEW_TV版 ドラえもん_Vol.200</h1>
+  <div class="bg-body-tertiary p-5 rounded mt-3" th:each="item : ${items}">
+    <h1 th:text="${item.title}"></h1>
     <div class="product-detail-wrap d-flex flex-row">
       <div class="product-detail-img w-50">
-        <img src="/img/NEW_TV版 ドラえもん_Vol.200.jpg" alt="" class="img-fluid pe-5">
+        <img src="@{/img/{file}(file=${item.imageFileName})}" alt="${item.title}" class="img-fluid pe-5">
       </div>
       <div class="product-detail-text w-50">
         <p class="lead">ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。</p>
