@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ikeda.entity.Member;
 import com.ikeda.presentation.form.MemberForm;
 import com.ikeda.service.RegisterService;
 
