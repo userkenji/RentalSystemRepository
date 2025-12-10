@@ -25,7 +25,7 @@ public class RentalSystemController {
 //	@Autowired
 //	private LoginService loginService;  // インスタンスを注入
 	
-	@GetMapping(value = "/home")
+	@GetMapping(value = "/gohome")//二つあるので仮のgoに変更してます
 	public String toHome( /* HttpSession session, Model model */ ) {
 		
 //		ItemData itemData = (ItemData) session.getAttribute("itemData");
@@ -36,7 +36,7 @@ public class RentalSystemController {
 //			session.setAttribute("itemData", itemData);
 //		}
 //		model.addAttribute("itemData", itemData);
-		return "index";
+		return "home";
 	}
 	
 //	@GetMapping(value = "/detail")

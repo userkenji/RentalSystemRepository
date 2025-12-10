@@ -166,7 +166,13 @@
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
-
+			<div class="col-md-3">
+			              <label for="zip" class="form-label">郵便番号</label>
+			              <input type="text" class="form-control" id="zip" placeholder="123-4567" th:field="*{zip}" required>
+			              <div class="invalid-feedback">
+			                Zip code required.
+			              </div>
+			            </div>
             <div class="col-12">
               <label for="address" class="form-label">住所</label>
               <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="福岡県福岡市中央区天神" required>
@@ -175,31 +181,38 @@
               </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="zip" class="form-label">郵便番号</label>
-              <input type="text" class="form-control" id="zip" placeholder="123-4567" th:field="*{zip}" required>
-              <div class="invalid-feedback">
-                Zip code required.
-              </div>
-            </div>
+            
           </div>
+		  <div class="row g-3">
 
+    <!-- 既存の入力欄ここ ... -->
 
-          <div class="row gy-3">
-            <div class="col-md-6">
-              <label for="cc-name" class="form-label">パスワード</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="8桁以上で入力してください" th:field="*{password}" required>
-              
-            </div>
+    <!-- phone -->
+    <div class="col-md-6">
+        <label for="phone" class="form-label">電話番号</label>
+        <input type="text" class="form-control"
+               id="phone" th:field="*{phone}"
+               placeholder="090-1234-5678">
+    </div>
 
-            <div class="col-md-6">
-              <label for="cc-number" class="form-label">パスワードの確認</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="パスワードを入力して下さい" th:field="*{passwordConfirm}" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
-            </div>
-            </div>
+    <!-- パスワード -->
+    <div class="col-md-6">
+        <label for="password" class="form-label">パスワード</label>
+        <input type="password" class="form-control"
+               id="password" th:field="*{password}"
+               placeholder="8桁以上で入力してください" required>
+    </div>
+
+    <!-- パスワード確認 -->
+    <div class="col-md-6">
+        <label for="passwordConfirm" class="form-label">パスワード確認</label>
+        <input type="password" class="form-control"
+               id="passwordConfirm" th:field="*{passwordConfirm}"
+               placeholder="パスワードを再入力" required>
+    </div>
+
+</div>
+
 
           <hr class="my-4">
 

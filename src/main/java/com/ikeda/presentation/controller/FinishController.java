@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ikeda.LoginService;
 import com.ikeda.presentation.form.MemberForm;
+import com.ikeda.service.MemberService;
 
 @Controller
 public class FinishController {

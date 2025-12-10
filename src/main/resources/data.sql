@@ -41,8 +41,8 @@ INSERT INTO dvd_items (id, title, image_file_name) VALUES
 (39, 'ブラックXXX誓いの刻印', 'batch_ブラックXXX誓いの刻印.jpg'),
 (40, '脱XX', 'batch_脱XX.jpg');
 
-TRUNCATE TABLE members;
-INSERT INTO members (firstname, lastname, username, email, address, zip, password)
+TRUNCATE TABLE customers;
+INSERT INTO customers (firstname, lastname, username, email, address, zip, phone, password)
 VALUES
 ('Taro', 'Yamada', 'taro_y', 'taro@example.com', 'Tokyo 1-2-3', '1000001', 'hashed_password_1'),
 ('Hanako', 'Suzuki', 'hanako_s', 'hanako@example.com', 'Osaka 4-5-6', '5300001', 'hashed_password_2');

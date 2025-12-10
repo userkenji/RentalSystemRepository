@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS dvd_items (
   image_file_name VARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS members;
-CREATE TABLE members (
+DROP TABLE IF EXISTS customers;
+CREATE TABLE customers (
     id INT PRIMARY KEY AUTO_INCREMENT,
     firstname VARCHAR(50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
@@ -13,5 +13,9 @@ CREATE TABLE members (
     email VARCHAR(100) NOT NULL UNIQUE,
     address VARCHAR(200),
     zip VARCHAR(20),
+    phone VARCHAR(50),
     password VARCHAR(255) NOT NULL
+    status VARCHAR(50),              -- 借りている総数（文字列でOKなら VARCHAR）
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

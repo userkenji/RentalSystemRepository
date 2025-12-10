@@ -51,15 +51,24 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
+		 <scope>runtime</scope>
         </dependency>
+
         
         <!-- PostgreSQL ドライバ -->
 	    <!-- <dependency>
 	        <groupId>org.postgresql</groupId>
 	        <artifactId>postgresql</artifactId>
 	        <scope>runtime</scope>
-	    </dependency> -->
+
+	    </dependency>-->
+	    <!--  Spring Security を使うため-->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+	    
 
         <!-- Lombok（あってもなくてもOK） -->
         <dependency>
