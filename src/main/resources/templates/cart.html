@@ -11,8 +11,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/offcanvas-navbar/">
  	<link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/cart.css" rel="stylesheet">
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/cart.css" rel="stylesheet">
+	<link href="/css/cart2.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -124,7 +124,7 @@
 <main class="container">
     <div class="d-flex text-body-secondary pt-3">
       <img src="/img/カートのアイコン素材.png" alt="ショッピングカート">
-      <p class="pb-3 mb-0 small lh-sm ">
+      <p class="pb-3 mb-0 small lh-sm shoppingcart-ttl ps-3">
         <strong class="d-block text-gray-dark h1">ショッピングカート</strong> 
       </p>
     </div>
@@ -139,7 +139,7 @@
         <img th:src="@{/img/{file}(file=${item.imageFileName})}" width="120">
 
         <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between ps-3">
                 <strong class="text-gray-dark" th:text="${item.title}"></strong>
 
                 <a th:href="@{/cart/delete/{id}(id=${item.id})}">削除</a>

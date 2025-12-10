@@ -13,6 +13,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-bottom/">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/normal.css" rel="stylesheet">
+    <link href="/css/detail.css" rel="stylesheet">
 
     
   </head>
@@ -100,22 +101,38 @@
     </div>
   </div>
 </header>
+
 <main class="container">
-  
-  <div class="bg-body-tertiary p-5 rounded mt-3" th:each="item : ${items}">
-    <h1 th:text="${item.title}"></h1>
+  <div class="bg-body-tertiary p-5 rounded mt-3">
+    <!-- タイトル -->
+    <h1 th:text="${item.title}">タイトル</h1>
+
     <div class="product-detail-wrap d-flex flex-row">
-      <div class="product-detail-img w-50">
-        <img src="@{/img/{file}(file=${item.imageFileName})}" alt="${item.title}" class="img-fluid pe-5">
+      <!-- 画像 -->
+      <div class="product-detail-img width_detail_img">
+        <img th:src="@{/img/{file}(file=${item.imageFileName})}"
+             th:alt="${item.title}"
+             class="img-fluid pe-5">
       </div>
+
+      <!-- テキスト -->
       <div class="product-detail-text w-50">
-        <p class="lead">ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。ここに詳細が入ります。</p>
-        <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">カートに入れる &raquo;</a>
+        <!-- DBの description を使う -->
+        <p class="lead" th:text="${item.description}">
+          ここに詳細が入ります。
+        </p>
+
+        <!-- カートに入れる（/cart/add/{id} に飛ばす） -->
+        <a class="btn btn-lg btn-primary"
+           th:href="@{/cart/add/{id}(id=${item.id})}"
+           role="button">
+          カートに入れる &raquo;
+        </a>
       </div>
     </div>
-    
   </div>
 </main>
+
 <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Bottom navbar</a>

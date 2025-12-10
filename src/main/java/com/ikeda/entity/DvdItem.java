@@ -19,6 +19,9 @@ public class DvdItem {
 
     @Column(name = "image_file_name")
     private String imageFileName;
+    
+    @Column(name = "description")
+    private String description;
 
     public Integer getId() {
         return id;
@@ -39,5 +42,12 @@ public class DvdItem {
     }
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

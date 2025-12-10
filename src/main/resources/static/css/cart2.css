@@ -1,0 +1,5 @@
+@charset "UTF-8";
+.shoppingcart-ttl{
+	display: flex;
+    align-items: center;
+}
