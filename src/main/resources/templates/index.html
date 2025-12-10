@@ -152,33 +152,33 @@
   </div>
 
 <!--ページネーション-->
-  <nav aria-label="商品ページ切り替え">
-	  <ul class="pagination justify-content-center">
-	
-	    <!-- 前へ -->
-	    <li class="page-item" th:classappend="${items.first} ? ' disabled'">
-	      <a class="page-link"
-	         th:href="@{/(page=${items.number - 1})}"
-	         tabindex="-1">前へ</a>
-	    </li>
-	
-	    <!-- ページ番号 -->
-	    <li class="page-item"
-	        th:each="i : ${#numbers.sequence(0, items.totalPages - 1)}"
-	        th:classappend="${i} == ${items.number} ? ' active'">
-	      <a class="page-link"
-	         th:text="${i + 1}"
-	         th:href="@{/(page=${i})}">1</a>
-	    </li>
-	
-	    <!-- 次へ -->
-	    <li class="page-item" th:classappend="${items.last} ? ' disabled'">
-	      <a class="page-link"
-	         th:href="@{/(page=${items.number + 1})}">次へ</a>
-	    </li>
-	
-	  </ul>
-	</nav>
+<nav aria-label="商品ページ切り替え" th:if="${items != null}">
+  <ul class="pagination justify-content-center">
+
+    <!-- 前へ -->
+    <li class="page-item" th:classappend="${items.first} ? ' disabled'">
+      <a class="page-link"
+         th:href="@{/(page=${items.number - 1})}"
+         tabindex="-1">前へ</a>
+    </li>
+
+    <!-- ページ番号 -->
+    <li class="page-item"
+        th:each="i : ${#numbers.sequence(0, items.totalPages - 1)}"
+        th:classappend="${i} == ${items.number} ? ' active'">
+      <a class="page-link"
+         th:text="${i + 1}"
+         th:href="@{/(page=${i})}">1</a>
+    </li>
+
+    <!-- 次へ -->
+    <li class="page-item" th:classappend="${items.last} ? ' disabled'">
+      <a class="page-link"
+         th:href="@{/(page=${items.number + 1})}">次へ</a>
+    </li>
+
+  </ul>
+</nav>
 
 </main>
 
