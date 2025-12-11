@@ -1,0 +1,150 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja" data-bs-theme="auto">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<link rel="icon" type="image/svg+xml" href="/img/favicon.png">
+	<title>商品削除確認 - 管理者ページ</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/normal.css" rel="stylesheet">
+</head>
+
+<body>
+	<header data-bs-theme="dark">
+		<div class="navbar navbar-dark bg-warning shadow-sm">
+			<div class="container">
+				<a href="/admin" class="navbar-brand d-flex align-items-center">
+					<img src="/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
+					<strong>管理者ページ - 商品削除</strong>
+				</a>
+				<div class="d-flex">
+					<a href="/admin/product-list" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
+					<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="py-5 container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					
+					<!-- 警告アラート -->
+					<div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+							<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+						</svg>
+						<div>
+							<strong>警告:</strong> この操作は取り消すことができません。本当に削除してもよろしいですか?
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header bg-danger text-white">
+							<h4 class="mb-0">商品削除確認</h4>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title mb-4">以下の商品を削除します</h5>
+
+							<div class="row">
+								<!-- 商品画像 -->
+								<div class="col-md-4 mb-3 mb-md-0">
+									<img th:src="@{/img/{file}(file=${product.imageFileName})}" 
+										th:alt="${product.title}" 
+										class="img-fluid rounded shadow-sm">
+								</div>
+
+								<!-- 商品情報 -->
+								<div class="col-md-8">
+									<table class="table table-bordered">
+										<tbody>
+											<tr>
+												<th class="bg-light" style="width: 150px;">商品ID</th>
+												<td th:text="${product.id}">P001</td>
+											</tr>
+											<tr>
+												<th class="bg-light">商品名</th>
+												<td th:text="${product.title}">○○えもん</td>
+											</tr>
+											
+										
+		
+											<tr>
+												<th class="bg-light">在庫数</th>
+												<td th:text="${product.stock} + ' 台'">3 台</td>
+											</tr>
+											<tr>
+												<th class="bg-light">ステータス</th>
+												<td>
+													<span class="badge" 
+														th:classappend="${product.status == 'available'} ? 'bg-success' : (${product.status == 'rented'} ? 'bg-warning' : 'bg-danger')"
+														th:text="${product.status == 'available'} ? '在庫あり' : (${product.status == 'rented'} ? 'レンタル中' : 'メンテナンス中')">
+														在庫あり
+													</span>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<!-- 注意事項 -->
+							<div class="alert alert-warning mt-4" role="alert">
+								<h6 class="alert-heading">削除前の注意事項:</h6>
+								<ul class="mb-0">
+									<li>削除された商品情報は復元できません</li>
+									<li>この商品に関連するレンタル履歴は保持されますが、商品情報は「削除済み」として表示されます</li>
+									<li th:if="${product.status == 'rented'}">
+										<strong class="text-danger">この商品は現在レンタル中です。削除する前に返却処理を完了してください。</strong>
+									</li>
+								</ul>
+							</div>
+
+							<!-- 削除フォーム -->
+							<form method="post" th:action="@{/admin/product-delete/{id}(id=${product.id})}" class="mt-4">
+								<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+									<a href="/admin/product-list" class="btn btn-secondary btn-lg me-md-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+											<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+										</svg>
+										キャンセル
+									</a>
+									<button type="submit" class="btn btn-danger btn-lg" 
+										th:disabled="${product.status == 'rented'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+											<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+											<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+										</svg>
+										削除する
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<footer class="text-body-secondary py-5">
+		<div class="container">
+			<p class="float-end mb-1">
+				<a href="#">Back to top</a>
+			</p>
+			<p class="mb-1">&copy; 株式会社 Music Life Agency</p>
+		</div>
+	</footer>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

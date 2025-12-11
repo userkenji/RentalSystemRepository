@@ -1,0 +1,287 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja" data-bs-theme="auto">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<link rel="icon" type="image/svg+xml" href="/img/favicon.png">
+	<title>注文管理 - 管理者ページ</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/normal.css" rel="stylesheet">
+</head>
+
+<body>
+	<header data-bs-theme="dark">
+		<div class="navbar navbar-dark bg-warning shadow-sm">
+			<div class="container">
+				<a href="/admin" class="navbar-brand d-flex align-items-center">
+					<img src="/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
+					<strong>管理者ページ - 注文管理</strong>
+				</a>
+				<div class="d-flex">
+					<a href="/admin" class="btn btn-outline-dark btn-sm me-2">ダッシュボード</a>
+					<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="py-4 container">
+			<div class="row">
+				<div class="col-12">
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h2 class="fw-light">注文管理</h2>
+					</div>
+
+					<!-- 注文テーブル -->
+					<div class="card">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover align-middle">
+									<thead class="table-light">
+										<tr>
+											<th>注文ID</th>
+											<th>ユーザー名</th>
+											<th>商品名</th>
+											<th>レンタル期間</th>
+											<th>注文日</th>
+											<th>ステータス</th>
+											<th style="width: 150px;">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- ここからループ開始 -->
+										<tr th:each="order : ${orders}">
+											<td>
+												<span class="fw-bold" th:text="${order.id}">ORD001</span>
+											</td>
+											<td>
+												<div th:text="${order.userName}">山田 太郎</div>
+												<small class="text-muted" th:text="${order.userEmail}">yamada@example.com</small>
+											</td>
+											<td>
+												<div th:text="${order.productName}">Canon EOS R5</div>
+												<small class="text-muted">数量: <span th:text="${order.quantity}">1</span></small>
+											</td>
+											<td>
+												<div th:text="${#temporals.format(order.rentalStart, 'MM/dd')} + ' - ' + ${#temporals.format(order.rentalEnd, 'MM/dd')}">
+													12/01 - 12/05
+												</div>
+												<small class="text-muted"><span th:text="${order.days}">4</span>日間</small>
+											</td>
+
+											<td th:text="${#temporals.format(order.orderDate, 'yyyy/MM/dd')}">2024/11/28</td>
+											<td>
+												<span class="badge" 
+													th:classappend="${order.status == 'renting'} ? 'bg-warning' : 
+														(${order.status == 'overdue'} ? 'bg-danger' : 
+														(${order.status == 'returned'} ? 'bg-success' : 'bg-secondary'))"
+													th:text="${order.status == 'renting'} ? 'レンタル中' : 
+														(${order.status == 'overdue'} ? '期限超過' : 
+														(${order.status == 'returned'} ? '返却済み' : 'キャンセル'))">
+													レンタル中
+												</span>
+											</td>
+											<td>
+	<div class="btn-group btn-group-sm" role="group">
+
+		<!-- 編集ボタン -->
+		<a th:href="@{/admin/order/edit/{id}(id=${order.id})}" 
+		   class="btn btn-outline-primary"
+		   title="編集">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+				 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+				<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+			</svg>
+		</a>
+
+		<!-- 削除ボタン -->
+		<form th:action="@{/admin/order/delete/{id}(id=${order.id})}"
+			  method="post"
+			  style="display: inline;"
+			  th:onsubmit="|return confirm('注文ID: ${order.id} を削除しますか？')|">
+			<button type="submit" class="btn btn-outline-danger" title="削除">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+					<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+					<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+				</svg>
+			</button>
+		</form>
+
+	</div>
+</td>
+
+										</tr>
+										<!-- ここまでループ終了 -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- ページネーション -->
+					<nav aria-label="注文ページ切り替え" class="mt-4">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${orders.first} ? ' disabled'">
+								<a class="page-link" th:href="@{/admin/order(page=${orders.number - 1})}" tabindex="-1">前へ</a>
+							</li>
+
+							<li class="page-item" th:each="i : ${#numbers.sequence(0, orders.totalPages - 1)}"
+								th:classappend="${i} == ${orders.number} ? ' active'">
+								<a class="page-link" th:text="${i + 1}" th:href="@{/admin/order(page=${i})}">1</a>
+							</li>
+
+							<li class="page-item" th:classappend="${orders.last} ? ' disabled'">
+								<a class="page-link" th:href="@{/admin/order(page=${orders.number + 1})}">次へ</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<!-- 注文詳細モーダル (各注文ごとに生成) -->
+	<div th:each="order : ${orders}" class="modal fade" th:id="'orderDetailModal' + ${order.id}" tabindex="-1">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">注文詳細 - <span th:text="${order.id}"></span></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<h6 class="text-muted mb-3">ユーザー情報</h6>
+							<table class="table table-sm table-borderless">
+								<tr>
+									<th style="width: 120px;">氏名:</th>
+									<td th:text="${order.userName}">山田 太郎</td>
+								</tr>
+								<tr>
+									<th>メール:</th>
+									<td th:text="${order.userEmail}">yamada@example.com</td>
+								</tr>
+								<tr>
+									<th>電話番号:</th>
+									<td th:text="${order.userPhone}">090-1234-5678</td>
+								</tr>
+								<tr>
+									<th>住所:</th>
+									<td th:text="${order.userAddress}">東京都渋谷区1-2-3</td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-md-6">
+							<h6 class="text-muted mb-3">注文情報</h6>
+							<table class="table table-sm table-borderless">
+								<tr>
+									<th style="width: 120px;">注文日:</th>
+									<td th:text="${#temporals.format(order.orderDate, 'yyyy年MM月dd日')}">2024年11月28日</td>
+								</tr>
+								<tr>
+									<th>レンタル期間:</th>
+									<td>
+										<span th:text="${#temporals.format(order.rentalStart, 'yyyy/MM/dd')}">2024/12/01</span>
+										～
+										<span th:text="${#temporals.format(order.rentalEnd, 'yyyy/MM/dd')}">2024/12/05</span>
+										(<span th:text="${order.days}">4</span>日間)
+									</td>
+								</tr>
+								<tr>
+									<th>ステータス:</th>
+									<td>
+										<span class="badge" 
+											th:classappend="${order.status == 'renting'} ? 'bg-warning' : 
+												(${order.status == 'overdue'} ? 'bg-danger' : 
+												(${order.status == 'returned'} ? 'bg-success' : 'bg-secondary'))"
+											th:text="${order.status == 'renting'} ? 'レンタル中' : 
+												(${order.status == 'overdue'} ? '期限超過' : 
+												(${order.status == 'returned'} ? '返却済み' : 'キャンセル'))">
+										</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+					<h6 class="text-muted mb-3">商品情報</h6>
+					<table class="table table-bordered">
+						<thead class="table-light">
+							<tr>
+								<th>商品名</th>
+								<th style="width: 100px;">数量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td th:text="${order.productName}">Canon EOS R5</td>
+								<td th:text="${order.quantity}">1</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+						閉じる
+					</button>
+
+					<!-- 編集ボタン -->
+					<a th:href="@{/admin/order/edit/{id}(id=${order.id})}" 
+					   class="btn btn-primary">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+							 fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+							<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+						</svg>
+						編集
+					</a>
+
+					<!-- 削除ボタン（フォーム送信） -->
+					<form th:action="@{/admin/order/delete/{id}(id=${order.id})}" 
+						  method="post" 
+						  style="display: inline;"
+						  th:onsubmit="|return confirm('注文ID: ${order.id} を削除しますか？')|">
+						<button type="submit" class="btn btn-danger">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+								 fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+								<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+								<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+							</svg>
+							削除
+						</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<footer class="text-body-secondary py-5">
+		<div class="container">
+			<p class="float-end mb-1">
+				<a href="#">Back to top</a>
+			</p>
+			<p class="mb-1">&copy; 株式会社 Music Life Agency</p>
+		</div>
+	</footer>
+	
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script>
+		function confirmReturn(orderId) {
+			if (confirm('注文ID: ' + orderId + ' の返却処理を行いますか?')) {
+				window.location.href = '/admin/order/return/' + orderId;
+			}
+		}
+	</script>
+
+</body>
+
+</html>
