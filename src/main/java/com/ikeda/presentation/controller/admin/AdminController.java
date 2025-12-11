@@ -6,9 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminController {
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        return "admin/index";  // admin/index.html (管理者用ページ）を表示
-    }
+//    @GetMapping("/admin")
+//    public String adminPage() {
+//        return "admin/index";  // admin/index.html (管理者用ページ）を表示
+//    }
+	
+	
+	// index.htmlから管理者用ログインページに直接遷移
+	@GetMapping("/admin/login")
+	public String adminLogin() {
+		return "admin/login";
+	}
 }
 
