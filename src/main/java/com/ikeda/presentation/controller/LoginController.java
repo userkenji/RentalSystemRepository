@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ikeda.LoginService;
+import com.ikeda.entity.Member;
 import com.ikeda.presentation.form.LoginForm;
+import com.ikeda.service.LoginService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {

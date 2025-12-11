@@ -30,6 +30,8 @@ public class CartController {
         if (cart == null) {
             cart = new ArrayList<>();
         }
+        
+        // 重複している商品が追加された場合に、カート追加操作を無効にする処理
 
         DvdItem item = itemRepository.findById(id).orElse(null);
         if (item != null) {

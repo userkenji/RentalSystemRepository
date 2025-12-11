@@ -1,0 +1,146 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja" data-bs-theme="auto">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<link rel="icon" type="image/svg+xml" href="/img/favicon.png">
+	<title>商品一覧 - 管理者ページ</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/normal.css" rel="stylesheet">
+</head>
+
+<body>
+	<header data-bs-theme="dark">
+		<div class="navbar navbar-dark bg-warning shadow-sm">
+			<div class="container">
+				<a href="/admin" class="navbar-brand d-flex align-items-center">
+					<img src="/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
+					<strong>管理者ページ - 商品一覧</strong>
+				</a>
+				<div class="d-flex">
+					<a href="/admin" class="btn btn-outline-dark btn-sm me-2">ダッシュボード</a>
+					<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<section class="py-4 container">
+			<div class="row">
+				<div class="col-12">
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h2 class="fw-light">商品一覧</h2>
+						<a href="/admin/product-form" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+							</svg>
+							新規商品登録
+						</a>
+					</div>
+
+					<!-- 検索フォーム -->
+		
+
+					<!-- 商品テーブル -->
+					<div class="card">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-hover align-middle">
+									<thead class="table-light">
+										<tr>
+											<th style="width: 80px;">画像</th>
+											<th>商品ID</th>
+											<th>商品名</th>
+											<th>在庫</th>
+											<th>ステータス</th>
+											<th style="width: 200px;">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- ここからループ開始 -->
+										<tr th:each="product : ${productList}">
+											<td>
+												<img th:src="@{/img/{file}(file=${product.imageFileName})}" 
+													th:alt="${product.title}" 
+													class="img-thumbnail" 
+													style="width: 60px; height: 60px; object-fit: cover;">
+											</td>
+											<td th:text="${product.id}">P001</td>
+											<td th:text="${product.title}">ざえもん</td>
+											
+											<td th:text="${product.stock}">3</td>
+											<td>
+												<span class="badge" 
+													th:classappend="${product.status == 'available'} ? 'bg-success' : (${product.status == 'rented'} ? 'bg-warning' : 'bg-danger')"
+													th:text="${product.status == 'available'} ? '在庫あり' : (${product.status == 'rented'} ? 'レンタル中' : 'メンテナンス中')">
+													在庫あり
+												</span>
+											</td>
+											<td>
+												<div class="btn-group btn-group-sm" role="group">
+										
+													<a th:href="@{/admin/product-form/{id}(id=${product.id})}" 
+														class="btn btn-outline-secondary" title="編集">
+														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+															<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+														</svg>
+													</a>
+													<a th:href="@{/admin/product-delete-confirm/{id}(id=${product.id})}" 
+														class="btn btn-outline-danger" title="削除">
+														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+															<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+															<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+														</svg>
+													</a>
+												</div>
+											</td>
+										</tr>
+										<!-- ここまでループ終了 -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- ページネーション -->
+					<nav aria-label="商品ページ切り替え" class="mt-4">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${products.first} ? ' disabled'">
+								<a class="page-link" th:href="@{/admin/product-list(page=${products.number - 1})}" tabindex="-1">前へ</a>
+							</li>
+
+							<li class="page-item" th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
+								th:classappend="${i} == ${products.number} ? ' active'">
+								<a class="page-link" th:text="${i + 1}" th:href="@{/admin/product-list(page=${i})}">1</a>
+							</li>
+
+							<li class="page-item" th:classappend="${products.last} ? ' disabled'">
+								<a class="page-link" th:href="@{/admin/product-list(page=${products.number + 1})}">次へ</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<footer class="text-body-secondary py-5">
+		<div class="container">
+			<p class="float-end mb-1">
+				<a href="#">Back to top</a>
+			</p>
+			<p class="mb-1">&copy; 株式会社 Music Life Agency</p>
+		</div>
+	</footer>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
