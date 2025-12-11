@@ -1,6 +1,11 @@
 package com.ikeda.presentation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.ikeda.LoginService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +28,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RentalSystemController {
-//	@Autowired
-//	private LoginService loginService;  // インスタンスを注入
+	@Autowired
+	private LoginService loginService;  // インスタンスを注入
+
 	
 	@GetMapping(value = "/gohome")//二つあるので仮のgoに変更してます
 	public String toHome( /* HttpSession session, Model model */ ) {
@@ -81,7 +87,8 @@ public class RentalSystemController {
 	} */
 	@Autowired
 	private DvdItemRepository dvdItemRepository;
-    @GetMapping("/")
+    /*遷移先が二つになるのでコメントアウト
+     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "0") int page,HttpSession session) {
 
@@ -109,7 +116,7 @@ public class RentalSystemController {
         model.addAttribute("itemData", itemData);
 
         return "index"; // 今の index.html を使う
-    }
+    }*/
     
     @GetMapping("/cartconfirm")
     public String showCartConfirm() {

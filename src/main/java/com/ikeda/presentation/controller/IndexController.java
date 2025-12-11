@@ -8,18 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.ikeda.service.ItemService;
 
 @Controller
-public class HomeController {
 
-    @Autowired
+public class IndexController {
+	@Autowired
     private ItemService itemService;
 
-    @GetMapping("/home")
-    public String showHomePage(Model model) {
+    @GetMapping("/")
+    public String showIndex(Model model) {
+        model.addAttribute("items", itemService.findAll());
+        return "index";
 
-      
-    	 model.addAttribute("items", itemService.findAll());
-        
-       
-        return "home";
-    }
+
+}
 }
