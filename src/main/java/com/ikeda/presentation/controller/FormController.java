@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ikeda.entity.Member;
 import com.ikeda.presentation.form.MemberForm;
-import com.ikeda.service.RegisterService;
+import com.ikeda.service.MemberService;
 
 @Controller
 public class FormController {
 
 	
     @Autowired
-    private RegisterService registerService;
+    private MemberService memberService;
     // GET /form → form.html を表示
     @GetMapping("/form")
     public String showForm(Model model) {
@@ -32,13 +32,16 @@ public class FormController {
         member.setLastName(memberForm.getLastName());
         member.setUsername(memberForm.getUsername());
         member.setEmail(memberForm.getEmail());
-        member.setAddress(memberForm.getAddress());
         member.setZip(memberForm.getZip());
-        member.setPassword(memberForm.getPassword()); // 平文 → Serviceでハッシュ化
+        member.setAddress(memberForm.getAddress());
+        member.setPhone(memberForm.getPhone());   //ｐｏｈｅ追加
 
-        registerService.register(member);
+        member.setPassword(memberForm.getPassword()); // 平文 → Serviceでハッシュ化
+        
+     // 正しく保存
+        memberService.saveMember(member);
         // ここで Service を呼んで DB 登録などを行う
         // memberService.register(memberForm);
-        return "redirect:/index"; // 登録完了後にトップ画面へ
+        return "redirect:/complete"; // 登録完了後にトップ画面へ
     }
 }

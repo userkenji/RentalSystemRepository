@@ -1,13 +1,13 @@
 TRUNCATE TABLE dvd_items;
 INSERT INTO dvd_items (id, title, image_file_name) VALUES
-(1, 'NEW_XXえもん', 'batch_NEW_XXえもん.jpg'),
+(1, 'NEW_XXえもん', 'batch_new_xx_emon.jpg'),
 (2, 'SAXXTO_DAYS', 'batch_SAXXTO_DAYS.jpg'),
-(3, '劇場版名探偵XXX残像', 'batch_劇場版名探偵XXX残像.jpg'),
-(4, '『怪獣XX号』', 'batch_『怪獣XX号』.jpg'),
-(5, 'XX野郎はサンタクロースの夢を見ない', 'batch_XX野郎はサンタクロースの夢を見ない.jpg'),
-(6, 'XX年後…', 'batch_XX年後….jpg'),
-(7, '『XX転生II 〜異世界行ったら本気だす〜』Vol.2', 'batch_『XX転生II 〜異世界行ったら本気だす〜』Vol.2.jpg'),
-(8, 'XXライン', 'batch_XXライン.jpg'),
+(3, '劇場版名探偵XXX残像', 'batch_gekijouban_meitantei_xxx_zanzou.jpg'),
+(4, '『怪獣XX号』', 'batch_kaijuu_xx_gou.jpg'),
+(5, 'XX野郎はサンタクロースの夢を見ない', 'batch_xx_yarou_santa_yume_minaai.jpg'),
+(6, 'XX年後…', 'batch_xx_nengo.jpg'),
+(7, '『XX転生II 〜異世界行ったら本気だす〜』Vol.2', 'batch_xx_tensei2_isekai_ittara_honki_dasu_vol2.jpg'),
+(8, 'XXライン', 'batch_xx_line.jpg'),
 (9, 'XXマン', 'batch_XXマン.jpg'),
 (10, 'XXハウス', 'batch_XXハウス.jpg'),
 (11, 'XXXピア', 'batch_XXXピア.jpg'),
@@ -40,3 +40,9 @@ INSERT INTO dvd_items (id, title, image_file_name) VALUES
 (38, 'ファイナルXXXXブリッジ', 'batch_ファイナルXXXXブリッジ.jpg'),
 (39, 'ブラックXXX誓いの刻印', 'batch_ブラックXXX誓いの刻印.jpg'),
 (40, '脱XX', 'batch_脱XX.jpg');
+
+TRUNCATE TABLE customers;
+INSERT INTO customers (firstname, lastname, username, email, address, zip, phone, password)
+VALUES
+('Taro', 'Yamada', 'taro_y', 'taro@example.com', 'Tokyo 1-2-3', '1000001', 'hashed_password_1'),
+('Hanako', 'Suzuki', 'hanako_s', 'hanako@example.com', 'Osaka 4-5-6', '5300001', 'hashed_password_2');

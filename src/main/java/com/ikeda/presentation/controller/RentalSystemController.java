@@ -5,10 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.ikeda.data.ItemData;
 import com.ikeda.entity.DvdItem;
@@ -20,10 +23,10 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class RentalSystemController {
-	@Autowired
-	private LoginService loginService;  // インスタンスを注入
+//	@Autowired
+//	private LoginService loginService;  // インスタンスを注入
 	
-	@GetMapping(value = "/home")
+	@GetMapping(value = "/gohome")//二つあるので仮のgoに変更してます
 	public String toHome( /* HttpSession session, Model model */ ) {
 		
 //		ItemData itemData = (ItemData) session.getAttribute("itemData");
@@ -34,13 +37,26 @@ public class RentalSystemController {
 //			session.setAttribute("itemData", itemData);
 //		}
 //		model.addAttribute("itemData", itemData);
-		return "index";
+		return "home";
 	}
 	
-	@GetMapping(value = "/detail")
-	public String toDetail() {
-		return "detail";
-	}
+//	@GetMapping(value = "/detail")
+//	public String toDetail() {
+//		return "detail";
+//	}
+	@GetMapping("/detail/{id}")
+    public String showDetail(@PathVariable("id") Integer id, Model model) {
+
+		DvdItem item = dvdItemRepository.findById(id).orElse(null);
+
+		if (item == null) {
+		    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
+		}
+
+        model.addAttribute("item", item);
+
+        return "detail"; // detail.html を表示
+    }
 
 	@GetMapping("/gologin")//二つあるので仮のgologinに変更してます
 	public String toLogin() {
@@ -93,11 +109,6 @@ public class RentalSystemController {
         model.addAttribute("itemData", itemData);
 
         return "index"; // 今の index.html を使う
-    }
-    
-    @GetMapping("/cart")
-    public String showCart() {
-        return "cart";  // cart.html を返す
     }
     
     @GetMapping("/cartconfirm")

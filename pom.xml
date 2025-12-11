@@ -48,24 +48,27 @@
         </dependency>
 
         <!-- MySQL ドライバ -->
-        <!-- <dependency>
+        <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency> -->
+		 <scope>runtime</scope>
+        </dependency>
+
         
         <!-- PostgreSQL ドライバ -->
-	    <dependency>
+	    <!-- <dependency>
 	        <groupId>org.postgresql</groupId>
 	        <artifactId>postgresql</artifactId>
 	        <scope>runtime</scope>
-	    </dependency>
+
+	    </dependency>-->
+	    <!--  Spring Security を使うため-->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 	    
-	        <!-- ★ BCrypt に必要！ -->
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
 
         <!-- Lombok（あってもなくてもOK） -->
         <dependency>
@@ -80,11 +83,28 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+		<!-- SpringSecurity -->
+        <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+		
     </dependencies>
 
     <build>
+		<!-- index.htmlを探させる -->
+		<resources>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	            <includes>
+	                <include>**/*</include>
+	            </includes>
+	        </resource>
+	    </resources>
         <plugins>
-            <!-- Lombok 用（あってもなくてもOK） -->
+            <!-- Lombok 用 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
