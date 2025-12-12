@@ -1,36 +1,44 @@
 package com.ikeda.presentation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.ikeda.data.ItemData;
 import com.ikeda.entity.DvdItem;
 import com.ikeda.presentation.form.MemberForm;
 import com.ikeda.repository.DvdItemRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class RentalSystemController {
-	@Autowired
+
 //	private LoginService loginService;  // インスタンスを注入
 
 	
-	@GetMapping(value = "/gohome")//二つあるので仮のgoに変更してます
-	public String toHome( /* HttpSession session, Model model */ ) {
-		
-//		ItemData itemData = (ItemData) session.getAttribute("itemData");
+//	@GetMapping(value = "/home")//二つあるので仮のgoに変更してます
+//	public String toHome( /* HttpSession session, Model model */ ) {
 //		
-//		if (itemData == null) {
-//			itemData = new ItemData();
-//			itemData.setItemName("データベースから取得するタイトル名");
-//			session.setAttribute("itemData", itemData);
-//		}
-//		model.addAttribute("itemData", itemData);
-		return "home";
-	}
+////		ItemData itemData = (ItemData) session.getAttribute("itemData");
+////		
+////		if (itemData == null) {
+////			itemData = new ItemData();
+////			itemData.setItemName("データベースから取得するタイトル名");
+////			session.setAttribute("itemData", itemData);
+////		}
+////		model.addAttribute("itemData", itemData);
+//		return "home";
+//	}
 	
 //	@GetMapping(value = "/detail")
 //	public String toDetail() {
@@ -50,10 +58,10 @@ public class RentalSystemController {
         return "detail"; // detail.html を表示
     }
 
-	@GetMapping("/gologin")//二つあるので仮のgologinに変更してます
-	public String toLogin() {
-		return "login"; // templates/login.html を返す
-	}
+//	@GetMapping("/login")//二つあるので仮のgologinに変更してます
+//	public String toLogin() {
+//		return "login"; // templates/login.html を返す
+//	}
 
 /*	@PostMapping("/login")//LoginController.javaに移植してます
 	public String doLogin(
@@ -73,7 +81,7 @@ public class RentalSystemController {
 	} */
 	@Autowired
 	private DvdItemRepository dvdItemRepository;
-    /*遷移先が二つになるのでコメントアウト
+    
      @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "0") int page,HttpSession session) {
@@ -102,7 +110,7 @@ public class RentalSystemController {
         model.addAttribute("itemData", itemData);
 
         return "index"; // 今の index.html を使う
-    }*/
+    }
     
     @GetMapping("/cartconfirm")
     public String showCartConfirm() {
