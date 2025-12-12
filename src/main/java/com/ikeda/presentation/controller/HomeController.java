@@ -11,7 +11,6 @@ import com.ikeda.service.ItemService;
 public class HomeController {
 
     @Autowired
-    private ItemService itemService;
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
