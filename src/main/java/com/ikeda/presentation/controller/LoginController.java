@@ -5,17 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ikeda.entity.Member;
+//import com.ikeda.entity.Member;
 import com.ikeda.presentation.form.LoginForm;
-import com.ikeda.service.LoginService;
+//import com.ikeda.service.LoginService;
 
-import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
 
 	@Autowired
-	private LoginService loginService;  // インスタンスを注入
+//	private LoginService loginService;  // インスタンスを注入
 
     // GET /login → ログイン画面表示
 	//

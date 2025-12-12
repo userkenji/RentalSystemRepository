@@ -18,7 +18,9 @@ public class SecurityConfig {
 	@Autowired
     private MemberRepository memberRepository;
 
-    // ★★★ ここを追加（UserDetailsService を設定）★★★
+    // --------------------------
+	// 利用者用UserDetailService
+	// --------------------------
     @Bean
     public UserDetailsService userDetailsService() {
         return email -> {
@@ -36,13 +38,24 @@ public class SecurityConfig {
                     .build();
         };
     }
-
+    
+    // -------------------------
+    // 管理者用UserDetailService
+    // -------------------------
+    @Bean
+    public UserDetailService userDetailService() {
+    	
+    }
+    
+    // ----------------------------
+    // 利用者用SecurityFilterChain
+    // ----------------------------
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/form","/css/**", "/js/**","/img/**").permitAll()
+                .requestMatchers("/", "/login", "/form","/css/**", "/js/**","/img/**", "/detail/**", "/admin/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
