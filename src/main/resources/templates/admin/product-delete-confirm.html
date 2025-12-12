@@ -78,16 +78,6 @@
 												<th class="bg-light">在庫数</th>
 												<td th:text="${product.stock} + ' 台'">3 台</td>
 											</tr>
-											<tr>
-												<th class="bg-light">ステータス</th>
-												<td>
-													<span class="badge" 
-														th:classappend="${product.status == 'available'} ? 'bg-success' : (${product.status == 'rented'} ? 'bg-warning' : 'bg-danger')"
-														th:text="${product.status == 'available'} ? '在庫あり' : (${product.status == 'rented'} ? 'レンタル中' : 'メンテナンス中')">
-														在庫あり
-													</span>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>

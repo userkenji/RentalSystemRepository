@@ -66,4 +66,11 @@ public class OrderItemService {
                 })
                 .collect(Collectors.toList());
     }
+    /**
+     * 注文明細をIDで削除する
+     */
+    public void deleteById(Long id) {
+        // Repository の標準メソッドを呼び出す
+        repository.deleteById(id);
+    }
 }

@@ -94,17 +94,7 @@
 											<td th:text="${product.title}">Canon EOS R5</td>
 										</tr>
 									
-						
-										<tr>
-											<th>ステータス:</th>
-											<td>
-												<span class="badge" 
-													th:classappend="${product.status == 'available'} ? 'bg-success' : (${product.status == 'rented'} ? 'bg-warning' : 'bg-danger')"
-													th:text="${product.status == 'available'} ? '在庫あり' : (${product.status == 'rented'} ? 'レンタル中' : 'メンテナンス中')">
-													在庫あり
-												</span>
-											</td>
-										</tr>
+		
 									</table>
 								</div>
 							</div>
