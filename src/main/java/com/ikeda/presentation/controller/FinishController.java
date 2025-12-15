@@ -1,18 +1,16 @@
 package com.ikeda.presentation.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ikeda.presentation.form.MemberForm;
-import com.ikeda.service.LoginService;
 
 @Controller
 public class FinishController {
 
-    @Autowired
-    private LoginService loginService;  // DB 保存用（まだ無ければ後で作る）
+//    @Autowired
+//    private LoginService loginService;  // DB 保存用（まだ無ければ後で作る）
 
     // POST /complete → DB登録 → トップページへ
     @PostMapping("/complete")

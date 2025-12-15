@@ -61,7 +61,9 @@
 											<th style="width: 80px;">画像</th>
 											<th>商品ID</th>
 											<th>商品名</th>
-											<th>在庫総数</th>
+											<th>店内在庫</th>
+											<th>貸出在庫</th>
+											<th>在庫総数(店内在庫＋貸出在庫)</th>
 											<th style="width: 200px;">操作</th>
 										</tr>
 									</thead>
@@ -69,15 +71,17 @@
 										<!-- ここからループ開始 -->
 										<tr th:each="p : ${products.content}">
 											<td>
-												<img th:src="@{/img/{file}(file=${p.imageFileName})}" 
+												<img th:src="@{/img/{f}(f=${p.imageFileName})}" 
 													th:alt="${p.title}" 
 													class="img-thumbnail" 
 													style="width: 60px; height: 60px; object-fit: cover;">
+													
 											</td>
-											<td th:text="${p.id}">P001</td>
-											<td th:text="${p.title}">ざえもん</td>
-											
-											<td th:text="${p.stock}">3</td>
+											<td th:text="${p.id}"></td>
+											<td th:text="${p.title}"></td>
+											<td th:text="${p.notRentedStock}"></td>
+											<td th:text="${p.rentedStock}"></td>
+											<td th:text="${p.stock}"></td>
 								
 											<td>
 												<div class="btn-group btn-group-sm" role="group">
@@ -90,6 +94,10 @@
 														</svg>
 													</a>
 
+<<<<<<< HEAD
+=======
+													
+>>>>>>> refs/heads/main
 													<a th:href="@{/admin/product-delete-confirm/{id}(id=${p.id})}" 
 														class="btn btn-outline-danger" title="削除">
 														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

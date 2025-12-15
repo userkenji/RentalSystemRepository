@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ikeda.entity.DvdItem;
+import com.ikeda.presentation.form.ProductForm;
 import com.ikeda.repository.DvdItemRepository;
 
 @Service
@@ -18,6 +19,45 @@ public class DvdItemService {
     // コンストラクタでRepositoryを注入
     public DvdItemService(DvdItemRepository dvdItemRepository) {
         this.dvdItemRepository = dvdItemRepository;
+    }
+    
+    /**
+     * 商品一覧で商品情報を更新したり新規登録したりして保存する
+     */
+    public void saveFromForm(ProductForm form) {
+
+        DvdItem item;
+
+        // 編集 or 新規 判定
+        if (form.getId() != null) {
+            // 編集：既存データを取得
+            item = findById(form.getId());
+        } else {
+            // 新規
+            item = new DvdItem();
+        }
+
+        // Form → Entity へコピー
+        item.setTitle(form.getTitle());
+        item.setDescription(form.getDescription());
+
+        Integer notRented = (form.getNotRentedStock() != null) ? form.getNotRentedStock() : 0;
+        Integer rented = (form.getRentedStock() != null) ? form.getRentedStock() : 0;
+
+        item.setNotRentedStock(notRented);
+        item.setRentedStock(rented);
+
+        // 総在庫は自動計算（事故防止）
+        item.setStock(notRented + rented);
+
+        // 画像（今回は変更なし／既存保持）
+        if (form.getImageFileName() != null) {
+            item.setImageFileName(form.getImageFileName());
+        } else {
+            item.setImageFileName("noimage.png");
+        }
+
+        dvdItemRepository.save(item);
     }
 
     /**
@@ -38,6 +78,14 @@ public class DvdItemService {
      */
     public DvdItem save(DvdItem dvdItem) {
         return dvdItemRepository.save(dvdItem);
+    }
+    
+    /**
+     * IDを使って商品（DvdItem）を1件取得する
+     */
+    public DvdItem findById(Integer id) {
+        return dvdItemRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("商品が見つかりません: " + id));
     }
 
     /**
