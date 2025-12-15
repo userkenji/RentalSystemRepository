@@ -22,7 +22,7 @@
 					<strong>管理者ページ - 商品詳細</strong>
 				</a>
 				<div class="d-flex">
-					<a href="/admin/product-list" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
+					<a th:href="@{/admin/products}" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
 					<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 					<nav aria-label="breadcrumb" class="mb-4">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="/admin">ダッシュボード</a></li>
-							<li class="breadcrumb-item"><a href="/admin/product-list">商品一覧</a></li>
+							<li class="breadcrumb-item"><a th:href="@{/admin/products}">商品一覧</a></li>
 							<li class="breadcrumb-item active" aria-current="page">商品詳細</li>
 						</ol>
 					</nav>

@@ -1,5 +1,7 @@
 package com.ikeda.presentation.controller.admin;
 
+import java.time.LocalDateTime; // 必須追加: タイムスタンプ用
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +34,8 @@ public class AdminProductController {
         model.addAttribute("product", new ProductForm());
         return "admin/product-form";//新規商品登録ページへ遷移する
     }
- // 商品新規登録実行 (POST /admin/product-save)
-    @PostMapping("/admin/product-save")
+ // 商品新規登録実行 (POST /admin/product/save)
+    @PostMapping("/admin/products/save")
     public String registerProduct(
             @ModelAttribute("product") ProductForm form, 
             RedirectAttributes redirectAttributes) {
@@ -48,13 +50,24 @@ public class AdminProductController {
         dvdItem.setPrice(form.getPrice()); 
         dvdItem.setStock(form.getStock());
         
-     // ★ 修正 1-2: 新しい在庫フィールドの初期化(使う場合はコメントアウトを解除)
-//        dvdItem.setRentedStock(0);
-//        dvdItem.setNotRentedStock(form.getStock());
+     //  修正 1-2: 新しい在庫フィールドの初期化(使う場合はコメントアウトを解除)
+        dvdItem.setRentedStock(0);
+        dvdItem.setNotRentedStock(form.getStock());
         
+        
+     // ★ 修正 3: 画像ファイルの処理
+        String imageFileName = "placeholder.jpg"; // デフォルト値
+        if (form.getImageFile() != null && !form.getImageFile().isEmpty()) {
+            // ファイル名を取得（実際の保存処理はスキップ）
+            imageFileName = form.getImageFile().getOriginalFilename();
+        }
         // 画像ファイルの処理は今回はスキップし、仮のファイル名を設定
         // ※ 実際のアプリケーションでは、ここでファイルアップロード処理と MultipartFile が必要
-        dvdItem.setImageFileName("placeholder.jpg"); 
+        dvdItem.setImageFileName(imageFileName);
+        
+     // ★ 修正 4: タイムスタンプの追加
+        dvdItem.setCreatedAt(LocalDateTime.now());
+        dvdItem.setUpdatedAt(LocalDateTime.now());
 
         // 2. Serviceへの保存委譲
         productService.save(dvdItem);
