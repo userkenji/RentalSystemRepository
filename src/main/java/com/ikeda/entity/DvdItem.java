@@ -26,20 +26,18 @@ public class DvdItem {
     @Column(name = "description")
     private String description;
     
-    @Column(name = "price") // ★ 修正: price_per_day から price へ
-    private Integer price; // フィールド名も price に変更推奨
-    // ------------------------------------------------
-    
- // --- 【追加箇所】 ---
-    @Column(name = "stock") // 明示的に指定
+
     private Integer stock; // HTMLに合わせて在庫数を追加
+
+    // 貸出中の在庫数
+    @Column(name = "rented_stock")
+    private Integer rentedStock;
+
+    // 未貸出（店内在庫）の在庫数
+    @Column(name = "not_rented_stock")
+    private Integer notRentedStock;
     // ----------------------
     
-    @Column(name = "rented_stock") // ★ 追加
-    private Integer rentedStock; 
-    
-    @Column(name = "not_rented_stock") // ★ 追加
-    private Integer notRentedStock; 
 
     @Column(name = "created_at") // ★ 追加: タイムスタンプ
     private LocalDateTime createdAt; 
@@ -79,19 +77,16 @@ public class DvdItem {
     }
     
 
-  
-    // ----------------------------------------------
- // ------------------------------------------------------------------
-    //  修正箇所 1: pricePerDay -> price に名称変更
-    // ------------------------------------------------------------------
-    public Integer getPrice() { // 修正
-        return price;
-    }
-    public void setPrice(Integer price) { // 修正
-        this.price = price;
-    }
- // --- 在庫関連の Getter/Setter ---
-    //  修正 2: stock の Getter/Setter を追加
+//    public Integer getPricePerDay() {
+//        return pricePerDay;
+//    }
+//
+//    public void setPricePerDay(Integer pricePerDay) {
+//        this.pricePerDay = pricePerDay;
+//    }
+    
+ // --- 【在庫管理: stock の Getter/Setter】 ---
+
     public Integer getStock() {
         return stock;
     }
@@ -128,4 +123,5 @@ public class DvdItem {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }

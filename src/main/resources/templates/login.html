@@ -158,7 +158,7 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <img src="assets/dist/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
+          <img src="/img/icon_white.png" alt="カメラのアイコン" style="width: 25px; margin-right: 5px;">
           <strong>Online Rental System</strong>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,6 +168,9 @@
     </div>
 </header>
 <main class="form-signin w-100 m-auto">
+	<p th:if="${param.registered}">
+    	新規登録ありがとうございました！<br>ログインしてください。
+	</p>
 	  <form th:action="@{/login}" th:object="${loginForm}" method="post">
 
     <h1 class="h3 mb-3 fw-normal mt-5">ログイン</h1>
@@ -188,7 +191,7 @@
 
     
     <button class="btn btn-primary w-100 py-2" type="submit">ログイン</button>
-    <a th:href="@{/form}" class="btn btn-secondary w-100 py-2 mt-3" >新規登録はこちら</a href="/form">
+    <a th:href="@{/form}" class="btn btn-secondary w-100 py-2 mt-3" >新規登録はこちら</a>
     <p class="mt-5 mb-3 text-body-secondary">&copy;株式会社 Music Life Agency</p>
   </form>
 </main>

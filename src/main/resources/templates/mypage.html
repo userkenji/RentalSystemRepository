@@ -141,93 +141,150 @@
 		<div class="album py-5 bg-body-tertiary">
 			<div class="container">
 				
-				<!-- アカウント情報カード -->
-				<div class="row mb-4">
-					<div class="col-12">
-						<div class="card shadow-sm">
-							<div class="card-header bg-primary text-white">
-								<h5 class="mb-0">アカウント情報</h5>
-							</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-6 mb-3">
-										<label class="form-label fw-bold">ユーザー名</label>
-										<p class="form-control-plaintext" th:text="${user.username}">山田太郎</p>
-									</div>
-									<div class="col-md-6 mb-3">
-										<label class="form-label fw-bold">メールアドレス</label>
-										<p class="form-control-plaintext" th:text="${user.email}">yamada@example.com</p>
-									</div>
-									<div class="col-md-6 mb-3">
-										<label class="form-label fw-bold">電話番号</label>
-										<p class="form-control-plaintext" th:text="${user.phoneNumber}">090-1234-5678</p>
-									</div>
-									<div class="col-md-6 mb-3">
-										<label class="form-label fw-bold">登録日</label>
-										<p class="form-control-plaintext" th:text="${#temporals.format(user.createdAt, 'yyyy年MM月dd日')}">2024年1月1日</p>
-									</div>
-								</div>
-								<div class="text-end">
-									<a href="/mypage/edit" class="btn btn-outline-primary">アカウント情報を編集</a>
-								</div>
-							</div>
-						</div>
+				 アカウント情報カード 
+				<!-- ▼ アカウント情報カード -->
+					<div class="row mb-4">
+					  <div class="col-12">
+					    <div class="card shadow-sm">
+					      <div class="card-header bg-primary text-white">
+					        <h5 class="mb-0">アカウント情報</h5>
+					      </div>
+					
+					      <div class="card-body">
+					        <div class="row">
+					
+					          <!-- 氏名（姓 + 名） -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">氏名</label>
+					            <p class="form-control-plaintext"
+					               th:text="${user.lastName + ' ' + user.firstName}">
+					              氏名
+					            </p>
+					          </div>
+					
+					          <!-- ユーザー名 -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">ユーザー名</label>
+					            <p class="form-control-plaintext" th:text="${user.username}">
+					              ユーザー名
+					            </p>
+					          </div>
+					
+					          <!-- メールアドレス -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">メールアドレス</label>
+					            <p class="form-control-plaintext" th:text="${user.email}">
+					              メールアドレス
+					            </p>
+					          </div>
+					
+					          <!-- 電話番号 -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">電話番号</label>
+					            <p class="form-control-plaintext" th:text="${user.phone}">
+					              電話番号
+					            </p>
+					          </div>
+					
+					          <!-- 郵便番号 -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">郵便番号</label>
+					            <p class="form-control-plaintext" th:text="${user.zip}">
+					              郵便番号
+					            </p>
+					          </div>
+					
+					          <!-- 住所 -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">住所</label>
+					            <p class="form-control-plaintext" th:text="${user.address}">
+					              住所
+					            </p>
+					          </div>
+					
+					          <!-- 借りている総数（status） -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">借りている総数</label>
+					            <p class="form-control-plaintext" th:text="${user.status}">
+					              借りている総数
+					            </p>
+					          </div>
+					
+					          <!-- 登録日（created_at） -->
+					          <div class="col-md-6 mb-3">
+					            <label class="form-label fw-bold">登録日</label>
+					            <!-- 一旦フォーマットなし。型に合わせてあとで変更可 -->
+					            <p class="form-control-plaintext" th:text="${user.createdAt}">
+					              登録日
+					            </p>
+					          </div>
+					
+					        </div>
+					
+					        <div class="text-end">
+					          <a href="/mypage/edit" class="btn btn-outline-primary">アカウント情報を編集</a>
+					        </div>
+					      </div>
+					
+					    </div>
+					  </div>
 					</div>
-				</div>
+					<!-- ▲ アカウント情報カード -->
 
-				<!-- レンタル履歴カード -->
-				<div class="row">
-					<div class="col-12">
-						<div class="card shadow-sm">
-							<div class="card-header bg-success text-white">
-								<h5 class="mb-0">レンタル履歴</h5>
-							</div>
-							<div class="card-body">
-								<!-- 履歴がある場合 -->
-								<div th:if="${not #lists.isEmpty(rentalHistory)}">
-									<div class="table-responsive">
-										<table class="table table-hover">
-											<thead>
-												<tr>
-													<th>注文日</th>
-													<th>商品名</th>
-													<th>レンタル期間</th>
-													<th>ステータス</th>
-												</tr>
-											</thead>
-											<tbody>
-												<!-- ここからループ開始 -->
-												<tr th:each="rental : ${rentalHistory}">
-													<td th:text="${#temporals.format(rental.orderDate, 'yyyy/MM/dd')}">2024/12/01</td>
-													<td th:text="${rental.itemName}">〇〇えもん</td>
-													<td>
-														<span th:text="${#temporals.format(rental.startDate, 'yyyy/MM/dd')}">2024/12/05</span>
-														〜
-														<span th:text="${#temporals.format(rental.endDate, 'yyyy/MM/dd')}">2024/12/10</span>
-													</td>
-													<td>
-														<span class="badge" 
-															th:classappend="${rental.status == '完了'} ? 'bg-secondary' : 
-																		   ${rental.status == 'レンタル中'} ? 'bg-primary' : 
-																		   ${rental.status == '予約済み'} ? 'bg-warning text-dark' : 'bg-info'"
-															th:text="${rental.status}">完了</span>
-													</td>
-												</tr>
-												<!-- ここまでループ終了 -->
-											</tbody>
-										</table>
-									</div>
-								</div>
 
-								<!-- 履歴がない場合 -->
-								<div th:if="${#lists.isEmpty(rentalHistory)}" class="text-center py-5">
-									<p class="text-body-secondary">まだレンタル履歴がありません</p>
-									<!--<a href="/" class="btn btn-primary mt-3">商品を探す</a>-->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<!--				 レンタル履歴カード -->
+<!--				<div class="row">-->
+<!--					<div class="col-12">-->
+<!--						<div class="card shadow-sm">-->
+<!--							<div class="card-header bg-success text-white">-->
+<!--								<h5 class="mb-0">レンタル履歴</h5>-->
+<!--							</div>-->
+<!--							<div class="card-body">-->
+<!--								 履歴がある場合 -->
+<!--								<div th:if="${not #lists.isEmpty(rentalHistory)}">-->
+<!--									<div class="table-responsive">-->
+<!--										<table class="table table-hover">-->
+<!--											<thead>-->
+<!--												<tr>-->
+<!--													<th>注文日</th>-->
+<!--													<th>商品名</th>-->
+<!--													<th>レンタル期間</th>-->
+<!--													<th>ステータス</th>-->
+<!--												</tr>-->
+<!--											</thead>-->
+<!--											<tbody>-->
+<!--												 ここからループ開始 -->
+<!--												<tr th:each="rental : ${rentalHistory}">-->
+<!--													<td th:text="${#temporals.format(rental.orderDate, 'yyyy/MM/dd')}">2024/12/01</td>-->
+<!--													<td th:text="${rental.itemName}">〇〇えもん</td>-->
+<!--													<td>-->
+<!--														<span th:text="${#temporals.format(rental.startDate, 'yyyy/MM/dd')}">2024/12/05</span>-->
+<!--														〜-->
+<!--														<span th:text="${#temporals.format(rental.endDate, 'yyyy/MM/dd')}">2024/12/10</span>-->
+<!--													</td>-->
+<!--													<td>-->
+<!--														<span class="badge" -->
+<!--															th:classappend="${rental.status == '完了'} ? 'bg-secondary' : -->
+<!--																		   ${rental.status == 'レンタル中'} ? 'bg-primary' : -->
+<!--																		   ${rental.status == '予約済み'} ? 'bg-warning text-dark' : 'bg-info'"-->
+<!--															th:text="${rental.status}">完了</span>-->
+<!--													</td>-->
+<!--												</tr>-->
+<!--												 ここまでループ終了 -->
+<!--											</tbody>-->
+<!--										</table>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								 履歴がない場合 -->
+<!--								<div th:if="${#lists.isEmpty(rentalHistory)}" class="text-center py-5">-->
+<!--									<p class="text-body-secondary">まだレンタル履歴がありません</p>-->
+<!--									<a href="/" class="btn btn-primary mt-3">商品を探す</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
 
 			</div>
 		</div>

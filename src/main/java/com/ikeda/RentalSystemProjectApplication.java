@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class RentalSystemProjectApplication {
 
     public static void main(String[] args) {
+        
         SpringApplication.run(RentalSystemProjectApplication.class, args);
     }
 }

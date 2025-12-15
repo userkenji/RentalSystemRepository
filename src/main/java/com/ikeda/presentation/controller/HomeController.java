@@ -1,21 +1,25 @@
 package com.ikeda.presentation.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.ikeda.service.ItemService;
+
 @Controller
 public class HomeController {
 
-	
+    @Autowired
+    ItemService itemService = new ItemService();
 
-	    @GetMapping("/home")
-	    public String showHomePage(Model model) {
-	        // item 一覧を読み込みするならここで addAttribute
-	        // model.addAttribute("items", itemService.findAll());
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
 
-	        return "home";  // templates/home.html
-	    }
-	}
-
-
+      
+    	 model.addAttribute("items", itemService.findAll());
+        
+       
+        return "home";
+    }
+}
