@@ -60,46 +60,50 @@
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
 
-							<!-- ログインフォーム -->
+							<!-- admin/login.html -->
+
 							<form method="post" th:action="@{/admin/login}">
-								
-								<!-- ユーザーID -->
-								<div class="mb-3">
-									<label for="username" class="form-label">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill me-1" viewBox="0 0 16 16">
-											<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-										</svg>
-										管理者ID
-									</label>
-									<!-- <input type="text" class="form-control form-control-lg" id="username" name="username" 
-										placeholder="管理者IDを入力" required autofocus> -->
-									<input type="text" class="form-control form-control-lg" id="email" name="email" placeholder="Emailを入力" required autofocus>
-								</div>
-
-								<!-- パスワード -->
-								<div class="mb-4">
-									<label for="password" class="form-label">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill me-1" viewBox="0 0 16 16">
-											<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
-										</svg>
-										パスワード
-									</label>
-									<input type="password" class="form-control form-control-lg" id="password" name="password" 
-										placeholder="パスワードを入力" required>
-								</div>
-
-								<!-- ログインボタン -->
-								<div class="d-grid mb-3">
-									<button type="submit" class="btn btn-warning btn-lg fw-bold">
-										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-in-right me-2" viewBox="0 0 16 16">
-											<path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
-											<path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
-										</svg>
-										ログイン
-									</button>
-								</div>
-
+							    
+							    <!-- ユーザーID（メールアドレス） -->
+							    <div class="mb-3">
+							        <label for="email" class="form-label">
+							            管理者ID（メールアドレス）
+							        </label>
+							        <input type="text"
+							               class="form-control form-control-lg"
+							               id="email"
+							               name="email"
+							               placeholder="Emailを入力"
+							               required autofocus>
+							    </div>
+							
+							    <!-- パスワード -->
+							    <div class="mb-4">
+							        <label for="password" class="form-label">
+							            パスワード
+							        </label>
+							        <input type="password"
+							               class="form-control form-control-lg"
+							               id="password"
+							               name="password"
+							               placeholder="パスワードを入力"
+							               required>
+							    </div>
+							
+							    <!-- CSRFトークン -->
+							    <input type="hidden"
+							           th:name="${_csrf.parameterName}"
+							           th:value="${_csrf.token}" />
+							
+							    <!-- ログインボタン -->
+							    <div class="d-grid mb-3">
+							        <button type="submit" class="btn btn-warning btn-lg fw-bold">
+							            ログイン
+							        </button>
+							    </div>
+							
 							</form>
+
 
 							<!-- 区切り線 -->
 							<hr class="my-4">
