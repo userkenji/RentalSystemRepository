@@ -67,28 +67,30 @@
 									</thead>
 									<tbody>
 										<!-- ここからループ開始 -->
-										<tr th:each="product : ${productList}">
+										<tr th:each="p : ${products.content}">
 											<td>
-												<img th:src="@{/img/{file}(file=${product.imageFileName})}" 
-													th:alt="${product.title}" 
+												<img th:src="@{/img/{file}(file=${p.imageFileName})}" 
+													th:alt="${p.title}" 
 													class="img-thumbnail" 
 													style="width: 60px; height: 60px; object-fit: cover;">
 											</td>
-											<td th:text="${product.id}">P001</td>
-											<td th:text="${product.title}">ざえもん</td>
+											<td th:text="${p.id}">P001</td>
+											<td th:text="${p.title}">ざえもん</td>
 											
-											<td th:text="${product.stock}">3</td>
+											<td th:text="${p.stock}">3</td>
 								
 											<td>
 												<div class="btn-group btn-group-sm" role="group">
 										
-													<a th:href="@{/admin/products/{id}/edit(id=${product.id})}"
+
+													<a th:href="@{/admin/product-form/{id}(id=${p.id})}" 
 														class="btn btn-outline-secondary" title="編集">
 														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 															<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
 														</svg>
 													</a>
-													<a th:href="@{/admin/products/delete/{id}(id=${product.id})}"
+
+													<a th:href="@{/admin/product-delete-confirm/{id}(id=${p.id})}" 
 														class="btn btn-outline-danger" title="削除">
 														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
 															<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -105,23 +107,37 @@
 						</div>
 					</div>
 
-					<!-- ページネーション 
-					<nav aria-label="商品ページ切り替え" class="mt-4">
-						<ul class="pagination justify-content-center">
-							<li class="page-item" th:classappend="${products.first} ? ' disabled'">
-								<a class="page-link" th:href="@{/admin/product-list(page=${products.number - 1})}" tabindex="-1">前へ</a>
-							</li>
 
-							<li class="page-item" th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
-								th:classappend="${i} == ${products.number} ? ' active'">
-								<a class="page-link" th:text="${i + 1}" th:href="@{/admin/product-list(page=${i})}">1</a>
-							</li>
+					<!-- ページネーション -->
+					<nav aria-label="商品ページ切り替え">
+					  <ul class="pagination justify-content-center">
+					
+					    <!-- 前へ -->
+					    <li class="page-item" th:classappend="${products.first} ? ' disabled'">
+					      <a class="page-link"
+					         th:href="@{/admin/products(page=${products.number - 1})}">
+					        前へ
+					      </a>
+					    </li>
+					
+					    <!-- ページ番号 -->
+					    <li class="page-item"
+					        th:each="i : ${#numbers.sequence(0, products.totalPages - 1)}"
+					        th:classappend="${i == products.number} ? ' active'">
+					      <a class="page-link" th:href="@{/admin/products(page=${i})}" th:text="${i + 1}">1</a>
+					    </li>
+					
+					    <!-- 次へ -->
+					    <li class="page-item" th:classappend="${products.last} ? ' disabled'">
+					      <a class="page-link"
+					         th:href="@{/admin/products(page=${products.number + 1})}">
+					        次へ
+					      </a>
+					    </li>
+					
+					  </ul>
+					</nav>
 
-							<li class="page-item" th:classappend="${products.last} ? ' disabled'">
-								<a class="page-link" th:href="@{/admin/product-list(page=${products.number + 1})}">次へ</a>
-							</li>
-						</ul>
-					</nav>-->
 
 				</div>
 			</div>

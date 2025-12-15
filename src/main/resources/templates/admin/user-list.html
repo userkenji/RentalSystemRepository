@@ -63,11 +63,10 @@
 											<td th:text="${user.id}">U001</td>
 											<td>
 												<div class="fw-bold" th:text="${user.lastName + ' ' + user.firstName}">山田 太郎</div>
-												<small class="text-muted" th:text="${user.lastNameKana + ' ' + user.firstNameKana}">やまだ たろう</small>
 											</td>
 											<td th:text="${user.email}">yamada@example.com</td>
 											<td th:text="${user.phone}">090-1234-5678</td>
-											<td th:text="${#temporals.format(user.registrationDate, 'yyyy/MM/dd')}">2024/01/15</td>
+											<td th:text="${#temporals.format(user.createdAt, 'yyyy/MM/dd')}">2024/01/15</td>
 
 											<td>
 												<div class="btn-group btn-group-sm" role="group">
