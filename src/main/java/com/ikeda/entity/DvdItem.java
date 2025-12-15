@@ -1,5 +1,7 @@
 package com.ikeda.entity;
 
+import java.time.LocalDateTime; // 【追加】タイムスタンプ用
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,29 +15,45 @@ public class DvdItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
+    @Column(name = "title") // 明示的に指定
     private String title;
-
+    
     @Column(name = "image_file_name")
     private String imageFileName;
     
     @Column(name = "description")
     private String description;
     
- // --- 【修正・追加箇所 1】 料金フィールドを追加 ---
-    @Column(name = "price_per_day") // DBのカラム名に合わせて設定（仮）
-    private Integer pricePerDay; 
+    @Column(name = "price") // ★ 修正: price_per_day から price へ
+    private Integer price; // フィールド名も price に変更推奨
     // ------------------------------------------------
     
  // --- 【追加箇所】 ---
+    @Column(name = "stock") // 明示的に指定
     private Integer stock; // HTMLに合わせて在庫数を追加
     // ----------------------
+    
+    @Column(name = "rented_stock") // ★ 追加
+    private Integer rentedStock; 
+    
+    @Column(name = "not_rented_stock") // ★ 追加
+    private Integer notRentedStock; 
 
-    public Integer getId() {
+    @Column(name = "created_at") // ★ 追加: タイムスタンプ
+    private LocalDateTime createdAt; 
+    
+    @Column(name = "updated_at") // ★ 追加: タイムスタンプ
+    private LocalDateTime updatedAt;
+    
+    
+     // ... Getter and Setter ...
+    
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,20 +78,54 @@ public class DvdItem {
         this.description = description;
     }
     
-    public Integer getPricePerDay() {
-        return pricePerDay;
-    }
 
-    public void setPricePerDay(Integer pricePerDay) {
-        this.pricePerDay = pricePerDay;
+  
+    // ----------------------------------------------
+ // ------------------------------------------------------------------
+    //  修正箇所 1: pricePerDay -> price に名称変更
+    // ------------------------------------------------------------------
+    public Integer getPrice() { // 修正
+        return price;
     }
-    
- // --- 【追加箇所: stock の Getter/Setter】 ---
+    public void setPrice(Integer price) { // 修正
+        this.price = price;
+    }
+ // --- 在庫関連の Getter/Setter ---
+    //  修正 2: stock の Getter/Setter を追加
     public Integer getStock() {
         return stock;
     }
     public void setStock(Integer stock) {
         this.stock = stock;
     }
-    // ----------------------------------------------
+    // ------------------------------------------------------------------
+    //  修正箇所 2: 新規フィールドの Getter/Setter を追加
+    // ------------------------------------------------------------------
+    public Integer getRentedStock() {
+        return rentedStock;
+    }
+    public void setRentedStock(Integer rentedStock) {
+        this.rentedStock = rentedStock;
+    }
+    
+    public Integer getNotRentedStock() {
+        return notRentedStock;
+    }
+    public void setNotRentedStock(Integer notRentedStock) {
+        this.notRentedStock = notRentedStock;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

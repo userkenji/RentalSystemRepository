@@ -6,7 +6,7 @@ public class ProductForm {
 
     private String title;
     private String description;
-    private Integer pricePerDay;
+    private Integer price;
     private Integer stock;
 
     // ※ 画像ファイルを受け取る処理は、通常 MultipartFile を使用しますが、
@@ -26,8 +26,8 @@ public class ProductForm {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public Integer getPricePerDay() { return pricePerDay; }
-    public void setPricePerDay(Integer pricePerDay) { this.pricePerDay = pricePerDay; }
+    public Integer getPrice() { return price; }
+    public void setPricePerDay(Integer price) { this.price = price; }
 
     public Integer getStock() { return stock; }
     public void setStock(Integer stock) { this.stock = stock; }

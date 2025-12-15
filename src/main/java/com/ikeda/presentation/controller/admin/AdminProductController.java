@@ -22,7 +22,7 @@ public class AdminProductController {
     // 商品一覧
     @GetMapping("/admin/products")
     public String showProductList(Model model) {
-        model.addAttribute("product", productService.findAll());
+        model.addAttribute("productList", productService.findAll());
         return "admin/product-list";//商品一覧ページへ遷移する
     }
 
@@ -44,8 +44,13 @@ public class AdminProductController {
         // データのコピー (IDは新規登録なので不要)
         dvdItem.setTitle(form.getTitle());
         dvdItem.setDescription(form.getDescription());
-        dvdItem.setPricePerDay(form.getPricePerDay());
+     // 修正 1-1: setPrice を使用し、form.getPrice() から値を取得
+        dvdItem.setPrice(form.getPrice()); 
         dvdItem.setStock(form.getStock());
+        
+     // ★ 修正 1-2: 新しい在庫フィールドの初期化(使う場合はコメントアウトを解除)
+//        dvdItem.setRentedStock(0);
+//        dvdItem.setNotRentedStock(form.getStock());
         
         // 画像ファイルの処理は今回はスキップし、仮のファイル名を設定
         // ※ 実際のアプリケーションでは、ここでファイルアップロード処理と MultipartFile が必要
@@ -60,11 +65,13 @@ public class AdminProductController {
     }
  // --- 【追加箇所 1: 削除確認画面表示 (GET)】 ---
     @GetMapping("/admin/products/delete/{id}")
-    public String showDeleteConfirm(@PathVariable Integer id, Model model) {
-        // 1. Service を使ってIDから商品情報を取得 (OptionalなのでorElseThrowなどで処理)
-        DvdItem product = productService.findById(id)
-                                        .orElseThrow(() -> new IllegalArgumentException("無効な商品IDです: " + id));
-        
+    public String showDeleteConfirm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {    	// 1. Optional<DvdItem> として取得
+        DvdItem product = productService.findById(id).orElse(null);
+     // 2. nullチェックでエラーハンドリングし、見つからなければ一覧へリダイレクト
+        if (product == null) {
+            redirectAttributes.addFlashAttribute("error", "指定された商品が見つかりませんでした。");
+            return "redirect:/admin/products"; 
+        }
         // 2. データを Model に格納
         model.addAttribute("product", product);
         
@@ -74,7 +81,7 @@ public class AdminProductController {
 
     // --- 【追加箇所 2: 削除実行 (POST)】 ---
     @PostMapping("/admin/product-delete/{id}")
-    public String deleteProduct(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+    public String deleteProduct(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         
         // 1. Service へ削除処理を委譲
         productService.deleteById(id);

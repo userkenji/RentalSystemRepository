@@ -55,7 +55,7 @@ public class OrderItemService {
                     // 商品 (DvdItem) から
                     form.setProductName(product.getTitle());
                     
-                    // ★ 期間やステータス情報がEntityに存在しないため、ここでは暫定値/仮の値を設定します
+                    // 期間やステータス情報がEntityに存在しないため、ここでは暫定値/仮の値を設定します
                     //    本来は OrderItem, Order, または別のEntityにこれらの情報が必要です。
                     form.setRentalStart(order.getOrderDate().toLocalDate().plusDays(2)); // 仮の期間開始日
                     form.setRentalEnd(order.getOrderDate().toLocalDate().plusDays(5)); // 仮の期間終了日

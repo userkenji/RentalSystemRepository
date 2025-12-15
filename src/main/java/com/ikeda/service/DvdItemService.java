@@ -1,6 +1,7 @@
 package com.ikeda.service;
 
 import java.util.List;
+import java.util.Optional; // 【必須】Optional をインポート
 
 import org.springframework.stereotype.Service;
 
@@ -34,14 +35,14 @@ public class DvdItemService {
     /**
      * DVD 詳細を ID で取得：
      */
-    /*  public Optional<DvdItem> findById(Integer id) {
+    public Optional<DvdItem> findById(Long id) {
         return dvdItemRepository.findById(id);
-    }*/
+    }
 
     /**
      * DVD を削除する機能：時間の都合上保留
      */
-    /*  public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         dvdItemRepository.deleteById(id);
-    }*/
+    }
 }

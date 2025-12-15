@@ -21,8 +21,9 @@ public class OrderItem {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private DvdItem product;
+ // ★ 修正箇所: DB側のカラム名 dvd_item_id に合わせる
+    @JoinColumn(name = "dvd_item_id") 
+    private DvdItem product; // フィールド名は product のままでOKです
 
     private Integer quantity;
     private Integer price;
