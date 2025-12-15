@@ -34,6 +34,10 @@ public class AdminProductController {
         model.addAttribute("product", new ProductForm());
         return "admin/product-form";//新規商品登録ページへ遷移する
     }
+    
+    
+    
+    
  // 商品新規登録実行 (POST /admin/product/save)
     @PostMapping("/admin/products/save")
     public String registerProduct(
