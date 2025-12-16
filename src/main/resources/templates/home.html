@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.png">
   <title>Home | Online Rental System</title>
+  
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
 
   <!-- index.htmlと揃える（どれか1つに統一推奨：まずはindexと同じに） -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,17 +35,20 @@
             <li><a th:href="@{/mypage}" class="text-white">マイページ</a></li>
 
             <!-- 未ログイン -->
-            <li th:if="${loginUser == null}">
-              <a th:href="@{/login}" class="text-white">ログイン</a>
-            </li>
-            <li th:if="${loginUser == null}">
-              <a th:href="@{/form}" class="text-white">新規登録</a>
-            </li>
-
-            <!-- ログイン済み -->
-            <li th:if="${loginUser != null}">
-              <a th:href="@{/logout}" class="text-white">ログアウト</a>
-            </li>
+			<li th:if="${session.loginUser == null}">
+			  <a th:href="@{/login}" class="text-white">ログイン</a>
+			</li>
+			<li th:if="${session.loginUser == null}">
+			  <a th:href="@{/form}" class="text-white">新規登録</a>
+			</li>
+			
+			<!-- ログイン済み -->
+			<li th:if="${session.loginUser != null}">
+			  <form th:action="@{/logout}" method="post" style="display:inline;">
+				  <button type="submit" class="btn btn-outline-primary my-1">ログアウト</button>
+				</form>
+			</li>
+			
 
             <li><a th:href="@{/admin/login}" class="text-warning">管理者ページ</a></li>
           </ul>
@@ -79,31 +84,26 @@
         <!-- ✅ ログイン状態が分かる表示（白文字はやめて見やすく） -->
         <div class="mb-3">
           <!-- ログイン済み -->
-          <div th:if="${loginUser != null}" class="alert alert-primary d-inline-block mb-2">
-            こんにちは
-            <strong th:text="${session.loginUser}">ユーザー</strong> さん（ログイン中）
-          </div>
+		<div th:if="${session.loginUser != null}" class="alert alert-primary d-inline-block mb-2">
+		  こんにちは <strong th:text="${session.loginUser}">ユーザー</strong> さん（ログイン中）
+		</div>
+		
+		<!-- 未ログイン -->
+		<div th:if="${session.loginUser == null}" class="alert alert-secondary d-inline-block mb-2">
+		  現在ログインしていません
+		</div>
 
-          <!-- 未ログイン -->
-          <div th:if="${loginUser == null}" class="alert alert-secondary d-inline-block mb-2">
-            現在ログインしていません
-          </div>
-
-          <!-- ログアウト直後メッセージ -->
-          <div th:if="${param.logout}" class="alert alert-success text-center">
-            ログアウトしました
-          </div>
         </div>
 
         <!-- ボタン群 -->
         <div class="d-flex gap-2 justify-content-center flex-wrap">
           <!-- ログイン済み -->
-          <a th:if="${loginUser != null}" th:href="@{/mypage}" class="btn btn-primary my-1">マイページ</a>
-          <a th:if="${loginUser != null}" th:href="@{/logout}" class="btn btn-outline-primary my-1">ログアウト</a>
+          <a th:if="${session.loginUser != null}" th:href="@{/mypage}" class="btn btn-primary my-1">マイページ</a>
+          <a th:if="${session.loginUser != null}" th:href="@{/logout}" class="btn btn-outline-primary my-1">ログアウト</a>
 
           <!-- 未ログイン -->
-          <a th:if="${loginUser == null}" th:href="@{/login}" class="btn btn-primary my-1">ログイン</a>
-          <a th:if="${loginUser == null}" th:href="@{/form}" class="btn btn-outline-primary my-1">新規登録</a>
+          <a th:if="${session.loginUser == null}" th:href="@{/login}" class="btn btn-primary my-1">ログイン</a>
+          <a th:if="${session.loginUser == null}" th:href="@{/form}" class="btn btn-outline-primary my-1">新規登録</a>
 
           <a th:href="@{/cart}" class="btn btn-outline-secondary my-1">カートを確認</a>
           <a th:href="@{/admin/login}" class="btn btn-warning my-1">管理者ページ</a>
@@ -121,8 +121,8 @@
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-        <div class="col" th:each="item : ${items}">
+		<!-- ここからループ開始 -->
+        <div class="col" th:each="item : ${items.content}">
           <div class="card shadow-sm">
             <img class="card-img-top"
                  th:src="@{/img/{file}(file=${item.imageFileName})}"
@@ -131,20 +131,17 @@
             <div class="card-body">
               <p class="card-text fw-bold" th:text="${item.title}">タイトル</p>
 
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <!-- ❌ aの中にbuttonを入れない（崩れ/クリック不具合の原因） -->
-                  <a th:href="@{/cart/add/{id}(id=${item.id})}"
-                     class="btn btn-sm btn-outline-secondary">カートに入れる</a>
-
-                  <a th:href="@{/detail/{id}(id=${item.id})}"
-                     class="btn btn-sm btn-outline-secondary">詳細を見る</a>
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="btn-group d-flex align-items-center">
+					<a th:href="@{/cart/add/{id}(id=${item.id})}" class="btn"><button type="button" class="btn btn-sm btn-outline-secondary">カートに入れる</button></a>
+                  	<a th:href="@{/detail/{id}(id=${item.id})}"><button type="button" class="btn btn-sm btn-outline-secondary">詳細を見る</button></a>
                 </div>
               </div>
 
             </div>
           </div>
         </div>
+        <!-- ここまでループ終了 -->
 
       </div>
     </div>
@@ -156,17 +153,17 @@
     <ul class="pagination justify-content-center">
 
       <li class="page-item" th:classappend="${items.first} ? ' disabled'">
-        <a class="page-link" th:href="@{/(page=${items.number - 1})}" tabindex="-1">前へ</a>
+        <a class="page-link" th:href="@{/home(page=${items.number - 1})}">前へ</a>
       </li>
 
       <li class="page-item"
           th:each="i : ${#numbers.sequence(0, items.totalPages - 1)}"
           th:classappend="${i} == ${items.number} ? ' active'">
-        <a class="page-link" th:text="${i + 1}" th:href="@{/(page=${i})}">1</a>
+        <a class="page-link" th:href="@{/home(page=${i})}">1</a>
       </li>
 
       <li class="page-item" th:classappend="${items.last} ? ' disabled'">
-        <a class="page-link" th:href="@{/(page=${items.number + 1})}">次へ</a>
+        <a class="page-link" th:href="@{/home(page=${items.number + 1})}">次へ</a>
       </li>
 
     </ul>
