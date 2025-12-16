@@ -25,7 +25,7 @@ public class AdminOrderController {
     @GetMapping("/admin/orders")
     public String list(Model model) {
     	List<OrderListForm> orders = orderItemService.findAll();        model.addAttribute("orders", orders);
-        return "admin/order-items";
+        return "admin/order-list";
     }
  // --- 【追加箇所 1: 編集画面表示】 ---
     @GetMapping("/admin/order/edit/{id}")

@@ -28,7 +28,8 @@ public class HomeController {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by("id").ascending());
 
         Page<DvdItem> items = itemService.findAll(pageable);
-
+        
+        
         model.addAttribute("items", items);
         model.addAttribute("currentPage", page);
 
