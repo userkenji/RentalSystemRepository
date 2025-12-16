@@ -23,7 +23,12 @@
 				</a>
 				<div class="d-flex">
 					<a href="/admin" class="btn btn-outline-dark btn-sm me-2">ダッシュボード</a>
-					<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>
+					<form th:action="@{/admin/logout}" method="post" class="d-inline">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				        <button type="submit" class="btn btn-outline-dark btn-sm">
+				            ログアウト
+				        </button>
+				    </form>
 				</div>
 			</div>
 		</div>

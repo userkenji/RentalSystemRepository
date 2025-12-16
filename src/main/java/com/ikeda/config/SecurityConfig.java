@@ -61,7 +61,7 @@ public class SecurityConfig {
         http
           .securityMatcher("/admin/**")
           .authorizeHttpRequests(auth -> auth
-              .requestMatchers("/admin/login", "/css/**", "/js/**", "/img/**").permitAll()
+              .requestMatchers("/","/admin/login", "/css/**", "/js/**", "/img/**").permitAll()
               .anyRequest().hasRole("ADMIN")
           )
           .formLogin(form -> form
@@ -73,9 +73,12 @@ public class SecurityConfig {
               .failureUrl("/admin/login?error")
           )
           .logout(logout -> logout
-              .logoutUrl("/admin/logout")
-              .logoutSuccessUrl("/admin/login?logout")
-          );
+        		.logoutUrl("/admin/logout")
+			    .logoutSuccessUrl("/?logout")
+			    .invalidateHttpSession(true)
+			    .deleteCookies("JSESSIONID")
+			    .permitAll()
+			);
 
         return http.build();
     }

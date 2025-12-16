@@ -132,6 +132,10 @@
 			<a th:href="@{/login}" class="btn btn-primary my-2">ログイン</a>
 			<a th:href="@{/form}" class="btn btn-primary my-2">新規登録</a>
 		</p>
+		<!-- ログアウトした場合に表示 -->
+		<div th:if="${param.logout}" class="alert alert-success text-center">
+		    ログアウトしました
+		</div>
 		
 		<p>
 			<a th:href="@{/admin/login}" class="btn btn-warning my-2">管理者ページ</a>
