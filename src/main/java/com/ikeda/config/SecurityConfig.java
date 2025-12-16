@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.ikeda.entity.Employee;
 import com.ikeda.entity.Member;
@@ -98,9 +99,13 @@ public class SecurityConfig {
               .defaultSuccessUrl("/home", true)
           )
           .logout(logout -> logout
-              .logoutUrl("/logout")
-              .logoutSuccessUrl("/login")
-          );
+			    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+			    .logoutSuccessUrl("/?logout")
+			    .invalidateHttpSession(true)
+			    .deleteCookies("JSESSIONID")
+			    .permitAll()
+			);
+
 
         return http.build();
     }
