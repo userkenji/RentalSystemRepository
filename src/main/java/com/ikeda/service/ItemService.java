@@ -1,7 +1,8 @@
 package com.ikeda.service;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.ikeda.entity.DvdItem;
@@ -9,12 +10,14 @@ import com.ikeda.repository.DvdItemRepository;
 
 @Service
 public class ItemService {
-	@Autowired
+
+    @Autowired
     private DvdItemRepository dvdItemRepository;
 
-    public List<DvdItem> findAll() {
-        return dvdItemRepository.findAll();
+    /**
+     * DVD一覧取得（ページネーションあり）
+     */
+    public Page<DvdItem> findAll(Pageable pageable) {
+        return dvdItemRepository.findAll(pageable);
     }
-
-
 }
