@@ -22,8 +22,14 @@
 					<strong>管理者ページ - 商品詳細</strong>
 				</a>
 				<div class="d-flex">
-					<a th:href="@{/admin/products}" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
-					<!--<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>-->
+
+					<a href="/admin/product-list" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
+					<form th:action="@{/admin/logout}" method="post" class="d-inline">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				        <button type="submit" class="btn btn-outline-dark btn-sm">
+				            ログアウト
+				        </button>
+				    </form>
 				</div>
 			</div>
 		</div>

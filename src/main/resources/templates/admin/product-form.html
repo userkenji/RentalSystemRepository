@@ -22,8 +22,15 @@
 					<strong>管理者ページ - 商品<span th:text="${product.id != null} ? '編集' : '登録'">登録</span></strong>
 				</a>
 				<div class="d-flex">
-					<a th:href="@{/admin/products}" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
-				<!--	<a href="/admin/logout" class="btn btn-outline-dark btn-sm">ログアウト</a>-->
+
+					<a href="/admin/product-list" class="btn btn-outline-dark btn-sm me-2">商品一覧へ</a>
+					<form th:action="@{/admin/logout}" method="post" class="d-inline">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				        <button type="submit" class="btn btn-outline-dark btn-sm">
+				            ログアウト
+				        </button>
+				    </form>
+>>>>>>> branch 'main' of https://github.com/userkenji/RentalSystemRepository.git
 				</div>
 			</div>
 		</div>
@@ -141,16 +148,13 @@
 									<div class="form-text">商品の特徴、仕様などを詳しく記載してください</div>
 								</div>
 
-<<<<<<< HEAD
 								<!-- 価格/日 -->
 								<div class="mb-3">
 									<label for="price" class="form-label">料金 (円)</span></label>
 									<input type="number" class="form-control" id="price" th:field="*{price}" min="0"
 										step="100" required>
 								</div>
-=======
-								
->>>>>>> refs/heads/main
+
 
 								<!-- 店内在庫数 -->
 								<div class="mb-3">
@@ -166,18 +170,12 @@
 								
 								<!-- 在庫数 -->
 								<div class="mb-3">
-<<<<<<< HEAD
-									<label for="stock" class="form-label">在庫数 <span class="text-danger">*</span></label>
-									<input type="number" class="form-control" id="stock" th:field="*{stock}" min="0"
-										required>
-=======
+
 									<label for="stock" class="form-label">在庫数(店内在庫＋貸出在庫) <span class="text-danger">*</span></label>
 									<input type="number" class="form-control" id="stock" th:field="*{stock}" min="0" required>
->>>>>>> refs/heads/main
 								</div>
 
 
-<<<<<<< HEAD
 								<!-- 商品画像 -->
 								<div class="mb-3">
 									<label for="imageFile" class="form-label">商品画像</label>
@@ -193,9 +191,6 @@
 										<input type="hidden" th:field="*{imageFileName}">
 									</div>
 								</div>
-=======
-								
->>>>>>> refs/heads/main
 
 								<!-- 送信ボタン -->
 								<div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
