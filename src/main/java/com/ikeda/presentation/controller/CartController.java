@@ -65,15 +65,15 @@ public class CartController {
     }
     
     // 注文を確定時の処理
-//    @GetMapping("/cart/confirm")
-//    public String confirm() {
+    @GetMapping("/confirm")
+    public String confirm() {
     
     	// ログイン中のcustomerのstatusにてレンタル状況を更新
     	// ordersにて新規注文情報を作成
     	// productsのrented_stock、not_rented_stockにて在庫状況を更新
     
-//    	return  注文情報表示ページ ;
-//    }
+    	return "cartconfirm";
+    }
     
     
 

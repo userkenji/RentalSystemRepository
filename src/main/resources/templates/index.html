@@ -115,12 +115,6 @@
 		  page <span th:text="${items.number + 1}">1</span>
 		</p>
 		
-<!--        <p>-->
-<!--          <a href="#" class="btn btn-primary my-2">マイページ</a>-->
-<!--          <a th:href="@{/login}" class="btn btn-primary my-2">ログイン</a>-->
-<!--          <a href="#" class="btn btn-primary my-2">新規登録</a>-->
-<!--        </p>-->
-		
 		<!-- ログインしている場合の表示 -->
 		<p th:if="${loginUser != null}">
 			<span class="text-white">こんにちは <span th:text="${session.loginUser}"></span>さん</span><br><br>
